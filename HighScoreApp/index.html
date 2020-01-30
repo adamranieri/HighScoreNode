@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Pacman High Score</title>
+</head>
+
+<body>
+
+    <h1>Add Your High Score</h1>
+    <h3>Honor System do not abuse plz</h3>
+
+    <input type="text" placeholder="name" id="nameinput">
+    <input type="number" placeholder="points" id="pointsinput">
+
+    <button onclick="sendScore()">Submit</button>
+
+    <h1>Pacman High Scores</h1>
+
+    <ol id="scorelist"> </ol>
+
+</body>
+
+<script>
+
+    async function populateList(){
+
+        let response = await fetch("http://localhost:8000/scores");
+        let scores = await response.json();
+
+        let info = "";
+        for(score of scores){
+            info = info +`<li> Name: ${score.name} Score: ${score.points} </li>`;
+        }
+
+        let scorelist = document.getElementById("scorelist");
+        scorelist.innerHTML = info;
+        
+    }
+    populateList();
+
+    async function sendScore(){
+
+        let name = document.getElementById("nameinput").value;
+        let points = document.getElementById("pointsinput").value;
+
+        let response = await fetch(`http://localhost:8000/scores/${name}/${points}`);
+        populateList();
+    }
+
+ 
+</script>
