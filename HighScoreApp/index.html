@@ -99,10 +99,11 @@ img {
 </body>
 
 <script>
+	const hostname = window.location.hostname;
 
     async function populateList(){
 
-        let response = await fetch("http://localhost:8000/scores");
+        let response = await fetch(`http://${hostname}:8000/scores`);
         let scores = await response.json();
 
         let info = "";
@@ -121,7 +122,7 @@ img {
         let name = document.getElementById("nameinput").value;
         let points = document.getElementById("pointsinput").value;
 
-        let response = await fetch(`http://localhost:8000/scores/${name}/${points}`);
+        let response = await fetch(`http://${hostname}:8000/scores/${name}/${points}`);
         populateList();
     }
 
