@@ -1,10 +1,16 @@
 const express = require('express');
 const cors = require('cors')
+const path = require('path');
 
 const app = express();
 app.use(cors());
 
 const scores = [];
+
+//main page
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/index.html'));
+});
 
 // gets all scores
 app.get("/scores",(req,res)=>{
